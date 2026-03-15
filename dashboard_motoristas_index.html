@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Motoristas - Transporte Hospitalar</title>
+
+<style>
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background:#0f172a;
+    color:white;
+    margin:0;
+    padding:0;
+}
+
+header{
+    background:#020617;
+    padding:20px;
+    text-align:center;
+    border-bottom:2px solid #1e293b;
+}
+
+.online{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    font-weight:bold;
+}
+
+.dot{
+    width:12px;
+    height:12px;
+    background:#22c55e;
+    border-radius:50%;
+    box-shadow:0 0 10px #22c55e;
+}
+
+.container{
+    padding:20px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#1e293b;
+    border-radius:10px;
+    padding:20px;
+    box-shadow:0 0 10px rgba(0,0,0,0.4);
+}
+
+.card h2{
+    text-align:center;
+    margin-top:0;
+}
+
+.role{
+    padding:8px;
+    margin:6px 0;
+    border-radius:6px;
+    background:#334155;
+}
+
+footer{
+    text-align:center;
+    padding:15px;
+    font-size:14px;
+    color:#94a3b8;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🚑 Transporte Hospitalar</h1>
+
+<div class="online">
+<div class="dot"></div>
+<span>Sistema Online — Última atualização:</span>
+<span id="hora"></span>
+</div>
+
+<p>Escala 24h / 72h — Motoristas</p>
+</header>
+
+<div class="container">
+
+<div class="grid">
+
+<div class="card">
+<h2>Equipe A</h2>
+<div class="role">🏥 P1 — Motorista</div>
+<div class="role">🚑 P2 — Motorista</div>
+<div class="role">🚑 P3 — Motorista</div>
+</div>
+
+<div class="card">
+<h2>Equipe B</h2>
+<div class="role">🏥 P1 — Motorista</div>
+<div class="role">🚑 P2 — Motorista</div>
+<div class="role">🚑 P3 — Motorista</div>
+</div>
+
+<div class="card">
+<h2>Equipe C</h2>
+<div class="role">🏥 P1 — Motorista</div>
+<div class="role">🚑 P2 — Motorista</div>
+<div class="role">🚑 P3 — Motorista</div>
+</div>
+
+<div class="card">
+<h2>Equipe D</h2>
+<div class="role">🏥 P1 — Motorista</div>
+<div class="role">🚑 P2 — Motorista</div>
+<div class="role">🚑 P3 — Motorista</div>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+Painel de Escala de Motoristas • Atualização automática
+</footer>
+
+<script>
+function atualizarHora(){
+    const agora = new Date();
+    document.getElementById("hora").textContent = agora.toLocaleTimeString();
+}
+
+setInterval(atualizarHora,1000);
+atualizarHora();
+
+setInterval(function(){
+    location.reload();
+},60000);
+</script>
+
+</body>
+</html>
