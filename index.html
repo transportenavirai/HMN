@@ -122,9 +122,9 @@ svg.dn{transform:rotate(-90deg)}
 .ln{font-size:10px}.lr{display:flex;align-items:center;gap:5px}
 .lp{font-size:10px;font-weight:700}.lt{font-size:9px;color:var(--muted)}
 .heat-wrap{padding:10px 14px;overflow-x:auto}
-.heat-hdr{display:flex;gap:3px;padding-left:90px;margin-bottom:3px}
-.heat-hdr span{width:24px;font-size:8px;color:var(--muted);text-align:center;flex-shrink:0}
-.heat-row{display:flex;align-items:center;gap:3px;margin-bottom:2px}
+.heat-hdr{display:flex;gap:3px;padding-left:90px;margin-bottom:3px;align-items:flex-end;height:80px}
+.heat-hdr span{width:24px;font-size:9px;color:var(--muted);flex-shrink:0;writing-mode:vertical-rl;transform:rotate(180deg);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-height:78px}
+.heat-row{display:flex;align-items:center;gap:3px;margin-bottom:2px;padding-top:0}
 .heat-lbl{font-size:9px;color:var(--muted);width:86px;flex-shrink:0;text-align:right;padding-right:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .heat-cell{width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:rgba(255,255,255,.9);cursor:default;transition:transform .15s;flex-shrink:0}
 .heat-cell:hover{transform:scale(1.4);z-index:10;position:relative}
@@ -459,7 +459,7 @@ function renderStats(){
   const dc={};rows.forEach(r=>dc[r.d]=(dc[r.d]||0)+1);
   const topD=Object.entries(dc).sort((a,b)=>b[1]-a[1]).slice(0,10).map(e=>e[0]);
   const maxV=Math.max(...list.flatMap(d=>topD.map(dest=>d.dests[dest]||0)),1);
-  let hh=`<div class="heat-hdr">${topD.map(d=>`<span title="${d}">${d.substring(0,6)}</span>`).join("")}</div>`;
+  let hh=`<div class="heat-hdr">${topD.map(d=>`<span title="${d}">${d}</span>`).join("")}</div>`;
   list.forEach(d=>{hh+=`<div class="heat-row"><div class="heat-lbl">${esc(d.name.split(" ")[0])}</div>`;topD.forEach(dest=>{const v=d.dests[dest]||0;const al=v>0?Math.min(1,.2+v/maxV*.8):.06;hh+=`<div class="heat-cell" style="${v>0?`background:${d.color};opacity:${al}`:"background:var(--s2);opacity:.4"}" onmouseenter="showTip(event,'<b>${esc(d.name)}</b> → ${esc(dest)}<br>${v} viagens')" onmouseleave="hideTip()" onmousemove="moveTip(event)">${v||""}</div>`;});hh+="</div>";});
   document.getElementById("heatWrap").innerHTML=hh;
   // Destinos
