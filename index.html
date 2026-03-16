@@ -58,6 +58,7 @@ header{display:flex;align-items:center;justify-content:space-between;margin-bott
 .rs-no{background:rgba(255,77,109,.12);color:var(--red);border:1px solid rgba(255,77,109,.2)}
 /* cards genéricos */
 .card{background:var(--s1);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px}
+.card-scroll{background:var(--s1);border:1px solid var(--border);border-radius:12px;overflow:visible;margin-bottom:14px}
 .card-hd{padding:11px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
 .card-hd h3{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px}
 .card-hd span{font-size:10px;color:var(--muted)}
@@ -193,7 +194,7 @@ footer p{font-size:10px;color:var(--muted)}
 
 <!-- ABA ESCALA DO MÊS -->
 <div class="tab-panel" id="panelEscala">
-  <div class="card">
+  <div class="card-scroll">
     <div class="card-hd"><h3>📅 ESCALA COMPLETA DO MÊS</h3><span id="escalaSub">--</span></div>
     <div class="esc-wrap"><div id="escalaMes"></div></div>
   </div>
