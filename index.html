@@ -72,12 +72,12 @@ table.dt tbody tr:hover td{background:rgba(0,229,160,.02)}
 .chip-p3{display:inline-flex;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;background:rgba(126,184,255,.12);color:var(--p3);border:1px solid rgba(126,184,255,.2)}
 .chip-off{display:inline-flex;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;background:rgba(255,77,109,.1);color:var(--red);border:1px solid rgba(255,77,109,.2)}
 /* escala visual */
-.esc-wrap{overflow-x:auto;padding:10px 14px}
-.esc-table{border-collapse:separate;border-spacing:0;font-size:11px}
+.esc-wrap{overflow-x:auto;padding:10px 14px;-webkit-overflow-scrolling:touch}
+.esc-table{border-collapse:separate;border-spacing:0;font-size:11px;width:max-content}
 .esc-table th{padding:6px 8px;font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);background:var(--s2);white-space:nowrap;font-weight:600;text-align:center;border-bottom:1px solid var(--border)}
-.esc-table td{padding:5px 6px;border-bottom:1px solid rgba(30,45,69,.3);border-right:1px solid rgba(30,45,69,.3);text-align:center;min-width:32px}
-.esc-table .mc{text-align:left;padding:5px 12px;font-weight:700;font-size:11px;white-space:nowrap;background:var(--s2);position:sticky;left:0;z-index:2;border-right:2px solid var(--border)}
-.esc-table th:first-child{position:sticky;left:0;z-index:3;border-right:2px solid var(--border)}
+.esc-table td{padding:5px 6px;border-bottom:1px solid rgba(30,45,69,.3);text-align:center;min-width:32px}
+.esc-table .mc{text-align:left;padding:5px 14px 5px 10px;font-weight:700;font-size:11px;white-space:nowrap;background:var(--s2);position:sticky;left:0;z-index:2;box-shadow:2px 0 4px rgba(0,0,0,.4)}
+.esc-table th:first-child{position:sticky;left:0;z-index:3;text-align:left;padding-left:10px;box-shadow:2px 0 4px rgba(0,0,0,.4);min-width:110px}
 .ep1{background:rgba(0,229,160,.2);color:var(--p1);border-radius:4px;padding:2px 5px;font-weight:800;font-size:10px}
 .ep2{background:rgba(255,201,77,.2);color:var(--p2);border-radius:4px;padding:2px 5px;font-weight:800;font-size:10px}
 .ep3{background:rgba(126,184,255,.2);color:var(--p3);border-radius:4px;padding:2px 5px;font-weight:800;font-size:10px}
