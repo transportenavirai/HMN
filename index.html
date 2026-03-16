@@ -301,7 +301,7 @@ const MOTORISTAS = [
     escala:{8:"P3",12:"P1",16:"P2",20:"P3",24:"P1",28:"P2",1:"P3",5:"P1"} },
   // ── GRUPO 3 ──────────────────────────────────────────────────────
   { nome:"COSME",        fone:"99677-0467", placa:"SYX-9F79",
-    escala:{7:"FERIAS",17:"P1",21:"P2",25:"P3",29:"P1",2:"P2"} },
+    escala:{7:"FERIAS",8:"FERIAS",9:"FERIAS",10:"FERIAS",11:"FERIAS",12:"FERIAS",13:"FERIAS",14:"FERIAS",15:"FERIAS",16:"FERIAS",17:"P1",21:"P2",25:"P3",29:"P1",2:"P2"} },
   { nome:"SILVIO",       fone:"99644-7196", placa:"TEA-4A97",
     escala:{9:"P2",13:"P1",17:"P2",21:"P3",25:"P1",29:"P2",2:"P3"} },
   { nome:"PAULO GAIOLA", fone:"99957-2433", placa:"RWB-4G28",
@@ -317,7 +317,9 @@ const MOTORISTAS = [
 
 // ── VIAGENS REALIZADAS — atualizado pelo CSV ─────────────────────────
 // (busca automaticamente da planilha)
-const VIAGENS_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS6FJhhY7ifdW7q8c3mObGodJm8fz2mfcLo2qns7aWzUbzJfCKOebOYqEI31sNlsn1vuTAFB__q2egV/pub?gid=180994976&single=true&output=csv";
+// URLs das planilhas — gid=180994976 é Registro Geral (viagens)
+const VIAGENS_URL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS6FJhhY7ifdW7q8c3mObGodJm8fz2mfcLo2qns7aWzUbzJfCKOebOYqEI31sNlsn1vuTAFB__q2egV/pub?gid=180994976&single=true&output=csv";
+const VIAGENS_URL2 = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS6FJhhY7ifdW7q8c3mObGodJm8fz2mfcLo2qns7aWzUbzJfCKOebOYqEI31sNlsn1vuTAFB__q2egV/pub?gid=164510149&single=true&output=csv";
 const REFRESH_MS  = 5 * 60 * 1000;
 
 // ── FIM DA ÁREA DE CONFIGURAÇÃO ──────────────────────────────────────
@@ -388,6 +390,11 @@ function render() {
       const cor = MOT_COLORS[m.nome]||"#aaa";
       const ini = initials(m.nome);
       const desc= tipo==="P1"?"🏥 Plantão Hospital — atende chamadas internas":tipo==="P2"?"🚐 Reserva — viagens externas e emergências":"📋 Terceira opção — último recurso";
+      // P1 e P2 são plantonistas — sempre disponíveis, sem restrição de horário
+      // Regra de acionamento só se aplica a P3
+      const regraHtml = tipo==="P3"
+        ? `<div><span class="regra-status ${regraStatus}">${regraLabel}</span></div>`
+        : `<div><span class="regra-status rs-ok">✅ Sempre disponível</span></div>`;
       return `<div class="plantao-card pc-${cls}">
         <div class="pc-badge">${tipo}</div>
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
@@ -397,7 +404,7 @@ function render() {
         <div class="pc-desc">${desc}</div>
         <div class="pc-fone">📱 ${esc(m.fone||"—")}</div>
         <span class="pc-placa">🚐 ${esc(m.placa||"—")}</span>
-        <div><span class="regra-status ${regraStatus}">${regraLabel}</span></div>
+        ${regraHtml}
       </div>`;
     }).join("");
   }
@@ -586,7 +593,10 @@ async function fetchViagens(){
   banner.style.display="flex";
   banner.innerHTML=`<span style="color:var(--p1)">⏳ Buscando viagens...</span>`;
   try{
-    const res=await fetch(VIAGENS_URL+"&cachebust="+Date.now(),{cache:"no-store"});
+    // Tenta o Registro Geral, fallback para o segundo link
+    let res = await fetch(VIAGENS_URL+"&cachebust="+Date.now(),{cache:"no-store"});
+    // Se veio vazio, tenta o link alternativo
+    if(!res.ok) res = await fetch(VIAGENS_URL2+"&cachebust="+Date.now(),{cache:"no-store"});
     if(!res.ok) throw new Error("HTTP "+res.status);
     const text=await res.text();
     const out=[];
@@ -611,7 +621,10 @@ async function fetchViagens(){
     buildFilters();
     renderStats();
 
-    banner.innerHTML=`<span style="color:var(--p1)">🟢 ${out.length} viagens carregadas às ${new Date().toLocaleTimeString("pt-BR")}</span> &nbsp;<button class="btn" onclick="fetchViagens()" style="font-size:10px;padding:3px 10px">⟳ Agora</button>`;
+    const msg = out.length > 0
+      ? `<span style="color:var(--p1)">🟢 ${out.length} viagens carregadas às ${new Date().toLocaleTimeString("pt-BR")}</span>`
+      : `<span style="color:var(--gold)">⚠️ CSV carregado mas 0 viagens reconhecidas — verifique se a planilha está publicada</span>`;
+    banner.innerHTML = msg + ` &nbsp;<button class="btn" onclick="fetchViagens()" style="font-size:10px;padding:3px 10px">⟳ Agora</button>`;
     setTimeout(fetchViagens,REFRESH_MS);
   }catch(err){
     banner.innerHTML=`<span style="color:var(--gold)">⚠️ ${esc(err.message)}</span> &nbsp;<button class="btn" onclick="fetchViagens()" style="font-size:10px;padding:3px 10px">⟳ Tentar</button>`;
