@@ -155,7 +155,8 @@ footer p{font-size:10px;color:var(--muted)}
     <div class="brand-ico">🏥</div>
     <div class="brand-text">
       <h1>HOSPITAL MUNICIPAL · ESCALA DE MOTORISTAS</h1>
-      <p>Gerência de Transporte · Naviraí-MS · Escala 24h×72h · Dados em tempo real</p>
+      <p>Gerência de Transporte · Naviraí-MS · Escala 24h×72h · Dados em tempo real
+      Marcio Castro </p>
     </div>
   </div>
   <div class="hdr-right">
@@ -178,8 +179,8 @@ footer p{font-size:10px;color:var(--muted)}
       <div class="date-sub" id="dateSub">--</div>
     </div>
     <div class="regras-box">
-      <div class="regra">🚫 Após 14h — viagens &gt;160km não acionar</div>
-      <div class="regra">🚫 Após 19h — nenhum acionamento</div>
+      <div class="regra">🚫 Após 14h — viagens &gt;160km Não acionar quem entra plamão dia seguinte</div>
+      <div class="regra">🚫 Após 19h — nenhum acionamento a quem ira entrar de plantão</div>
       <div id="regraHora" class="regra-hora"></div>
     </div>
   </div>
@@ -188,7 +189,7 @@ footer p{font-size:10px;color:var(--muted)}
   <div class="card">
     <div class="card-hd"><h3>📅 PRÓXIMOS 7 DIAS</h3><span>escala vigente</span></div>
     <div style="overflow-x:auto">
-      <table class="dt"><thead><tr><th>Data</th><th>Dia</th><th>P1 — Plantão</th><th>P2 — Reserva</th><th>P3 — Opção</th><th>Indisponíveis</th></tr></thead>
+      <table class="dt"><thead><tr><th>Data</th><th>Dia</th><th>P1 — Plantão</th><th>P2 — 2ª viagem</th><th>P3 — 1ª Viagem</th><th>Indisponíveis</th></tr></thead>
       <tbody id="proxTbody"></tbody></table>
     </div>
   </div>
@@ -240,7 +241,7 @@ footer p{font-size:10px;color:var(--muted)}
 </div>
 
 <footer>
-  <p>🔒 Painel 100% transparente · Hospital Municipal de Naviraí · Gerência de Transporte · Escala 24h×72h</p>
+  <p>🔒 Painel de Transparencia · HMN· Gerência de Transporte · Maarcio Castro .Escala 24h×72h</p>
   <p id="tsLbl"></p>
 </footer>
 </div>
@@ -344,7 +345,7 @@ function renderPlantao() {
     if(!mots.length) return`<div class="pc pc-vazio"><div class="pc-badge">${tipo}</div><div style="color:var(--muted);margin-top:4px">— Sem escala —</div></div>`;
     return mots.map(m=>{
       const cor=MCORE[m.nome]||"#aaa";
-      const desc=tipo==="P1"?"🏥 Plantão Hospital — atende chamadas internas":tipo==="P2"?"🚐 Reserva — viagens externas e emergências":"📋 Terceira opção — último recurso";
+      const desc=tipo==="P1"?"🏥 Plantão Hospital — atende chamadas internas":tipo==="P2"?"🚐 Reserva — viagens externas e emergências":"🚑 Primeira opção — disponivel";
       // P1 e P2: sempre disponíveis. P3: segue regra de horário
       const regraHtml=tipo==="P3"?`<div><span class="rs ${rs}">${rl}</span></div>`:`<div><span class="rs rs-ok">✅ Sempre disponível</span></div>`;
       return`<div class="pc pc-${cls}"><div class="pc-badge">${tipo}</div>
