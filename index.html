@@ -350,9 +350,9 @@ const dia = ref.getDate();
     if(!mots.length) return`<div class="pc pc-vazio"><div class="pc-badge">${tipo}</div><div style="color:var(--muted);margin-top:4px">— Sem escala —</div></div>`;
     return mots.map(m=>{
       const cor=MCORE[m.nome]||"#aaa";
-      const desc=tipo==="P1"?"🏥 Plantão Hospital — atende chamadas internas":tipo==="P2"?"🚐 Reserva — viagens externas e emergências":"🚑 Primeira opção — disponivel";
+      const desc=tipo==="P1"?"🏥 Plantão Hospital — atende chamadas internas":tipo==="P2"?"🚐 PLANTÃO — VIAGEM ":"🚑 Primeira opção — disponivel";
       // P1 e P2: sempre disponíveis. P3: segue regra de horário
-      const regraHtml=tipo==="P3"?`<div><span class="rs ${rs}">${rl}</span></div>`:`<div><span class="rs rs-ok">✅ Sempre disponível</span></div>`;
+      const regraHtml=`<div><span class="rs ${rs}">${rl}</span></div>`:`<div><span class="rs rs-ok">✅ Sempre disponível</span></div>`;
       return`<div class="pc pc-${cls}"><div class="pc-badge">${tipo}</div>
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
           <div class="av" style="width:36px;height:36px;background:${cor}22;color:${cor};border:2px solid ${cor}55;font-size:12px">${esc(ini(m.nome))}</div>
